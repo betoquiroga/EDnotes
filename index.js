@@ -54,7 +54,13 @@ function eliminarNota() {
       return;
     }
     // Eliminamos la nota del arreglo
-    notas.splice(index - 1, 1);
+    let nuevasNotas = [];
+    for (let i = 0; i < notas.length; i++) {
+      if (i !== index - 1) {
+        nuevasNotas.push(notas[i]);
+      }
+    }
+    notas = nuevasNotas;
     console.log('Nota eliminada correctamente');
     menu();
   });
