@@ -22,9 +22,9 @@ function agregarNota() {
 // Función para ver todas las notas
 function verNotas() {
   console.log('Tus notas:');
-  notas.forEach((nota, index) => {
-    console.log(`${index + 1}. ${nota}`);
-  });
+  for (let i = 0; i < notas.length; i++) {
+    console.log(`${i + 1}. ${notas[i]}`);
+  }
   menu();
 }
 
