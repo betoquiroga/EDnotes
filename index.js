@@ -1,7 +1,7 @@
 const readline = require('readline');
 
 // Creamos un arreglo vacío para almacenar nuestras notas
-const notas = [];
+let notas = [];
 
 // Creamos una instancia de readline para leer la entrada del usuario
 const rl = readline.createInterface({
@@ -11,48 +11,79 @@ const rl = readline.createInterface({
 
 // Función para agregar una nota
 function agregarNota() {
+  console.clear()
   rl.question('Escribe tu nota: ', (nota) => {
     // Agregamos la nota al arreglo
     notas.push(nota);
     console.log('Nota agregada correctamente');
+    
     menu();
   });
 }
 
 // Función para ver todas las notas
 function verNotas() {
+  console.clear()
+
+  if (notas.length === 0) {
+    console.log('No hay notas para mostrar')
+    menu()
+    return
+  }
+
   console.log('Tus notas:');
   for (let i = 0; i < notas.length; i++) {
     console.log(`${i + 1}. ${notas[i]}`);
   }
+
   menu();
 }
 
 // Función para editar una nota
 function editarNota() {
+  console.clear()
+  
+  if (notas.length === 0) {
+    console.log('No hay notas para editar')
+    menu()
+  
+    return
+  }
+  
   rl.question('Ingresa el número de la nota que quieres editar: ', (index) => {
     if (index < 1 || index > notas.length) {
       console.log('Número de nota inválido');
       editarNota();
       return;
     }
+
     rl.question('Escribe la nueva versión de la nota: ', (nota) => {
       // Actualizamos la nota en el arreglo
       notas[index - 1] = nota;
       console.log('Nota actualizada correctamente');
       menu();
     });
+
   });
 }
 
 // Función para eliminar una nota
 function eliminarNota() {
+  console.clear()
+
+  if (notas.length === 0) {
+    console.log('No hay notas para eliminar')
+    menu()
+    return
+  }
+
   rl.question('Ingresa el número de la nota que quieres eliminar: ', (index) => {
     if (index < 1 || index > notas.length) {
       console.log('Número de nota inválido');
       eliminarNota();
       return;
     }
+
     // Eliminamos la nota del arreglo
     let nuevasNotas = [];
     for (let i = 0; i < notas.length; i++) {
@@ -60,7 +91,9 @@ function eliminarNota() {
         nuevasNotas.push(notas[i]);
       }
     }
+
     notas = nuevasNotas;
+
     console.log('Nota eliminada correctamente');
     menu();
   });
@@ -103,3 +136,4 @@ function menu() {
 
 // Iniciamos la aplicación mostrando el menú
 menu();
+
